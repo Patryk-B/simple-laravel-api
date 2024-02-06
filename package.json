@@ -3,7 +3,15 @@
     "type": "module",
     "scripts": {
         "dev": "vite",
-        "build": "vite build"
+        "build": "vite build",
+        "windows_sail_artisan_key_gen": "bash ./vendor/laravel/sail/bin/sail artisan key:generate --ansi",
+        "windows_sail_artisan_migrate": "bash ./vendor/laravel/sail/bin/sail artisan migrate",
+        "windows_start": "bash ./vendor/laravel/sail/bin/sail up --build -d",
+        "windows_stop": "bash ./vendor/laravel/sail/bin/sail down",
+        "linux_sail_artisan_key_gen": "./vendor/bin/sail artisan key:generate --ansi",
+        "linux_sail_artisan_migrate": "./vendor/bin/sail artisan migrate",
+        "linux_start": "./vendor/bin/sail up --build -d",
+        "linux_stop": "./vendor/bin/sail up down"
     },
     "devDependencies": {
         "axios": "^1.6.4",
