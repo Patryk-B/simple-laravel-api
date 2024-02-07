@@ -18,7 +18,7 @@ class UserSeeder extends Seeder
         // ---- . ---- ---- ---- ---- . ----
 
         $admin_name = 'admin';
-        $admin_user = User::where('username', $admin_name) -> first(); // FATAL: introduce roles and permissions !!! because `name` row is not unique !!! normal `user` can be named `admin` !!!
+        $admin_user = User::where('username', $admin_name) -> first(); // FATAL: introduce roles and permissions !!! because `username` row is not unique !!! normal `user` can be named `admin` !!!
         if (is_null($admin_user)) {
             User::create([
                 'username' => 'admin',

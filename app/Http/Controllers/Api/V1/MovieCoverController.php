@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\V1;
 
+use App\Models\MovieCover;
+use Illuminate\Routing\Controller;
 use App\Http\Requests\StoreMovieCoverRequest;
 use App\Http\Requests\UpdateMovieCoverRequest;
-use App\Models\MovieCover;
 
 class MovieCoverController extends Controller
 {
@@ -13,7 +14,7 @@ class MovieCoverController extends Controller
      */
     public function index()
     {
-        //
+        return MovieCover::all();
     }
 
     /**

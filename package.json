@@ -4,6 +4,7 @@
     "scripts": {
         "dev": "vite",
         "build": "vite build",
+        "__dev_windows_sail_artisan": "bash ./vendor/laravel/sail/bin/sail artisan",
         "__dev_windows_sail_artisan_key_gen": "bash ./vendor/laravel/sail/bin/sail artisan key:generate --ansi",
         "__dev_windows_sail_artisan_migrate": "bash ./vendor/laravel/sail/bin/sail artisan migrate",
         "__dev_windows_sail_artisan_migrate_rollback": "bash ./vendor/laravel/sail/bin/sail artisan migrate:rollback",
@@ -12,6 +13,7 @@
         "__dev_windows_sail_artisan_db_seed": "bash ./vendor/laravel/sail/bin/sail artisan db:seed",
         "__dev_windows_start": "bash ./vendor/laravel/sail/bin/sail up --build -d",
         "__dev_windows_stop": "bash ./vendor/laravel/sail/bin/sail down",
+        "__dev_linux_sail_artisan": "./vendor/bin/sail artisan",
         "__dev_linux_sail_artisan_key_gen": "./vendor/bin/sail artisan key:generate --ansi",
         "__dev_linux_sail_artisan_migrate": "./vendor/bin/sail artisan migrate",
         "__dev_linux_sail_artisan_migrate_rollback": "./vendor/bin/sail artisan migrate:rollback",
