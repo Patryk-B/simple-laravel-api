@@ -21,7 +21,7 @@ return new class extends Migration
                                            // - $table->foreignId('user_id')->references('id')->on('users');
 
             // other:
-            $table->string('name')->unique();
+            $table->string('username')->unique();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

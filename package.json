@@ -8,6 +8,7 @@
         "__dev_windows_sail_artisan_migrate": "bash ./vendor/laravel/sail/bin/sail artisan migrate",
         "__dev_windows_sail_artisan_migrate_rollback": "bash ./vendor/laravel/sail/bin/sail artisan migrate:rollback",
         "__dev_windows_sail_artisan_migrate_rollback_step_1": "bash ./vendor/laravel/sail/bin/sail artisan migrate:rollback --step=1",
+        "__dev_windows_sail_artisan_migrate_fresh_seed": "bash ./vendor/laravel/sail/bin/sail artisan migrate:fresh --seed",
         "__dev_windows_sail_artisan_db_seed": "bash ./vendor/laravel/sail/bin/sail artisan db:seed",
         "__dev_windows_start": "bash ./vendor/laravel/sail/bin/sail up --build -d",
         "__dev_windows_stop": "bash ./vendor/laravel/sail/bin/sail down",
@@ -15,6 +16,7 @@
         "__dev_linux_sail_artisan_migrate": "./vendor/bin/sail artisan migrate",
         "__dev_linux_sail_artisan_migrate_rollback": "./vendor/bin/sail artisan migrate:rollback",
         "__dev_linux_sail_artisan_migrate_rollback_step_1": "./vendor/bin/sail artisan migrate:rollback --step=1",
+        "__dev_linux_sail_artisan_migrate_fresh_seed": "./vendor/bin/sail artisan migrate:fresh --seed",
         "__dev_linux_sail_artisan_db_seed": "./vendor/bin/sail artisan db:seed",
         "__dev_linux_start": "./vendor/bin/sail up --build -d",
         "__dev_linux_stop": "./vendor/bin/sail up down"

@@ -18,10 +18,10 @@ class UserSeeder extends Seeder
         // ---- . ---- ---- ---- ---- . ----
 
         $admin_name = 'admin';
-        $admin_user = User::where('name', $admin_name) -> first(); // FATAL: introduce roles and permissions !!! because `name` row is not unique !!! normal `user` can be named `admin` !!!
+        $admin_user = User::where('username', $admin_name) -> first(); // FATAL: introduce roles and permissions !!! because `name` row is not unique !!! normal `user` can be named `admin` !!!
         if (is_null($admin_user)) {
             User::create([
-                'name' => 'admin',
+                'username' => 'admin',
                 'email' => 'admin@example.com',
                 'password' => bcrypt($admin_name), // FATAL: THIS IS JUST FOR SHOW !!! NEVER DO THIS IRL !!! OR AT LEAST USE `.env` FILE !!!
             ]);

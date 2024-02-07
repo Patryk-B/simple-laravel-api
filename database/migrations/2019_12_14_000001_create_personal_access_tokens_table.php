@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             // $table->morphs('tokenable'); // for when users' primary key is `id`
             $table->uuidMorphs('tokenable'); // for when users' primary key is `uuid`
-            $table->string('name');
+            // $table->string('name');
+            $table->string('username');
             $table->string('token', 64)->unique();
             $table->text('abilities')->nullable();
             $table->timestamp('last_used_at')->nullable();
