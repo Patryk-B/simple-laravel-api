@@ -2,11 +2,11 @@
 
 namespace App\Models;
 
-use App\Models\MovieCover;
+use App\Models\Movie;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Movie extends Model
+class MovieCover extends Model
 {
     use HasFactory;
 
@@ -15,14 +15,14 @@ class Movie extends Model
      *
      * @var string
      */
-    protected $table = 'movies';
+    protected $table = 'movie_covers';
 
     /**
      * Lists Covers Belonging to a movie.
      *
-     * @return array<MovieCover>
+     * @return Movie
      */
-    public function covers() {
-        return $this->hasMany(MovieCover::class);
+    public function movie() {
+        return $this->belongsTo(Movie::class);
     }
 }
