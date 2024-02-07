@@ -12,8 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
+            // // int id:
+            // $table->id();
+
+            // uuid id:
+            $table->uuid('id')->primary(); // use either foreignId:
+                                           // - $table->foreignId('user_id')->constrained();
+                                           // - $table->foreignId('user_id')->references('id')->on('users');
+
+            // other:
+            $table->string('name')->unique();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
