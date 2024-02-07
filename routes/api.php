@@ -3,7 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\V1\MovieController;
-use App\Http\Controllers\Api\V1\MovieCoverController;
+use App\Http\Controllers\Api\V1\CoverController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,5 +25,5 @@ Route::group([
     'namespace' => 'App\Http\Controllers\Api\V1'
 ], function () {
     Route::apiResource('movies', MovieController::class);
-    Route::apiResource('movieCovers', MovieCoverController::class);
+    Route::apiResource('covers', CoverController::class);
 });

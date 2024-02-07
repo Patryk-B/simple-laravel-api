@@ -6,7 +6,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Database\Seeders\UserSeeder;
 use Database\Seeders\MovieSeeder;
-use Database\Seeders\MovieCoverSeeder;
+use Database\Seeders\CoverSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UserSeeder::class,
             MovieSeeder::class,
-            MovieCoverSeeder::class,
+            CoverSeeder::class,
         ]);
     }
 }

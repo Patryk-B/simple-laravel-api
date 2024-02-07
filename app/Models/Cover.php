@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class MovieCover extends Model
+class Cover extends Model
 {
     use HasUuids, HasFactory;
 
@@ -16,7 +16,7 @@ class MovieCover extends Model
      *
      * @var string
      */
-    protected $table = 'movie_covers';
+    protected $table = 'covers';
 
     /**
      * The attributes that are mass assignable.

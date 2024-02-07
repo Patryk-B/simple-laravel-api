@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 /**
  *
  */
-class MovieCoversFilter extends ApiFilter {
+class CoversFilter extends ApiFilter {
 
     /**
      * params by which we can query:

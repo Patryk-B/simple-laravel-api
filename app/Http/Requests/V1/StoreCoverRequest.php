@@ -4,7 +4,7 @@ namespace App\Http\Requests\V1;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateMovieCoverRequest extends FormRequest
+class StoreCoverRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,7 +22,16 @@ class UpdateMovieCoverRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'movieId' => ['required', 'uuid'],
         ];
+    }
+
+    /**
+     *
+     */
+    protected function prepareForValidation() {
+        $this->merge([
+            'movie_id' => $this->movieId,
+        ]);
     }
 }

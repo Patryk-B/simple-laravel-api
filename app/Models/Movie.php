@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\MovieCover;
+use App\Models\Cover;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -43,9 +43,9 @@ class Movie extends Model
     /**
      * Return a cover belonging to the movie.
      *
-     * @return array<MovieCover>
+     * @return array<Cover>
      */
     public function cover() {
-        return $this->hasOne(MovieCover::class);
+        return $this->hasOne(Cover::class);
     }
 }
