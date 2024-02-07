@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Models\Movie;
 use Illuminate\Http\Request;
-use App\Services\V1\MovieQuery;
+use App\Filters\V1\MoviesFilter;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreMovieRequest;
 use App\Http\Resources\V1\MovieResource;
@@ -18,13 +18,7 @@ class MovieController extends Controller
      */
     public function index(Request $request)
     {
-        // return Movie::all()->map(
-        //     fn($movie) => new MovieResource($movie)
-        // );
-
-        // return new MovieCollection(Movie::paginate());
-
-        $filer = new MovieQuery();
+        $filer = new MoviesFilter();
         $queryItems = $filer->transform($request); // [['column', 'operator', 'value']]
 
         if (count($queryItems) == 0) {

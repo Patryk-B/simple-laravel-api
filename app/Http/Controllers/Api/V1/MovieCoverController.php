@@ -3,24 +3,29 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Models\MovieCover;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use App\Http\Resources\V1\MovieCoverResource;
-use App\Http\Resources\V1\MovieCoverCollection;
+use App\Filters\V1\MovieCoversFilter;
 use App\Http\Requests\StoreMovieCoverRequest;
+use App\Http\Resources\V1\MovieCoverResource;
 use App\Http\Requests\UpdateMovieCoverRequest;
+use App\Http\Resources\V1\MovieCoverCollection;
 
 class MovieCoverController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        // return MovieCover::all()->map(
-        //     fn($movieCover) => new MovieCoverResource($movieCover)
-        // );
+        $filer = new MovieCoversFilter();
+        $queryItems = $filer->transform($request); // [['column', 'operator', 'value']]
 
-        return new MovieCoverCollection(MovieCover::paginate());
+        if (count($queryItems) == 0) {
+            return new MovieCoverCollection(MovieCover::paginate());
+        } else {
+            return new MovieCoverCollection(MovieCover::where($queryItems)->paginate());
+        }
     }
 
     /**

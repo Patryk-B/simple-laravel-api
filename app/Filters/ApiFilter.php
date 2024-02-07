@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\V1;
+namespace App\Filters;
 
 use Illuminate\Http\Request;
 
@@ -9,33 +9,27 @@ use Illuminate\Http\Request;
  *
  * query is a user input, and the golden rule about user input is: NEVER TRUST USER INPUT !!!
  */
-class MovieQuery {
+class ApiFilter {
 
     /**
-     * params by which we can query:
+     * params by which we can queried.
      */
-    protected $safeParams = [
-        'title' => ['eq'],
-        'country' => ['eq'],
-        // 'genres' => ['in'], // TODO query json column.
-    ];
+    protected $safeParams = [];
 
     /**
-     * database uses `underscore_case`, json standard expects `camelCase`, map between the two.
+     * database uses `underscore_case`, in json we should use `camelCase`, map between the two.
      */
-    protected $columnMap = [
-        // 'uploadedBy' => 'uploaded_by'
-    ];
+    protected $columnMap = [];
 
     /**
-     * map operators
+     * map operators.
      */
     protected $operatorMap = [
-        'eq' => '=',
-        'lt' => '<',
-        'lte' => '<=',
-        'gt' => '>',
-        'gte' => '>=',
+        // 'eq' => '=',
+        // 'lt' => '<',
+        // 'lte' => '<=',
+        // 'gt' => '>',
+        // 'gte' => '>=',
     ];
 
     /**
