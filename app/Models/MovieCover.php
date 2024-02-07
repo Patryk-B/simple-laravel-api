@@ -27,15 +27,6 @@ class MovieCover extends Model
         'movie_id',
     ];
 
-    // /**
-    //  * The attributes that should be cast.
-    //  *
-    //  * @var array<string, string>
-    //  */
-    // protected $casts = [
-    //     'genre' => 'array'
-    // ];
-
     /**
      * Return movie this cover belongs to.
      *

@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\V1;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreMovieRequest extends FormRequest
+class StoreMovieCoverRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return false;
+        return true; // just for now.
     }
 
     /**
@@ -22,7 +22,13 @@ class StoreMovieRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'movieId' => ['required', 'uuid'],
         ];
+    }
+
+    protected function prepareForValidation() {
+        $this->merge([
+            'movie_id' => $this->movieId,
+        ]);
     }
 }

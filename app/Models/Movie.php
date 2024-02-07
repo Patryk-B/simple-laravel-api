@@ -37,7 +37,7 @@ class Movie extends Model
      * @var array<string, string>
      */
     protected $casts = [
-        'genre' => 'array'
+        'genres' => 'array'
     ];
 
     /**

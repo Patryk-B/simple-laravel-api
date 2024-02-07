@@ -18,7 +18,7 @@ return new class extends Migration
                                            // - $table->foreignId('fooooooo')->references('id')->on('movies');
 
             // other:
-            $table->string('title');
+            $table->string('title')->unique();
             // $table->foreignUuid('cover')->references('id')->on('movie_covers')->nullable();
             // $table->string('cover_uuid')->nullable();
             $table->json('genres');

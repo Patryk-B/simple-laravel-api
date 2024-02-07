@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
@@ -26,8 +27,8 @@ class UserSeeder extends Seeder
             User::create([
                 'username' => 'admin',
                 'email' => 'admin@example.com',
-                'password' => bcrypt(str_random(32)), // logic: since we don't want to use this account, we don't need to remember its password.
-                                                      //        and if at any point in time, we will want to start using it, we can always manually overwrite the password in the DB.
+                'password' => bcrypt(Str::random(32)), // logic: since we don't want to use this account, we don't need to remember its password.
+                                                       //        and if at any point in time, we will want to start using it, we can always manually overwrite the password in the DB.
             ]);
         }
         // else {

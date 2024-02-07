@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\V1;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateMovieRequest extends FormRequest
+class StoreMovieRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return false;
+        return true; // just for now.
     }
 
     /**
@@ -22,7 +22,13 @@ class UpdateMovieRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title' => ['required', 'min:1'],
+            'genres' => ['required', 'array', 'min:1'],
+            'genres.*' => ['required', 'string', 'distinct', 'min:1'],
+            'country' => ['required', 'min:1'],
+            'description' => ['required', 'min:25']
         ];
     }
+
+
 }

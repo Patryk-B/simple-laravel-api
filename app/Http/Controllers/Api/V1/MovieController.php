@@ -6,9 +6,9 @@ use App\Models\Movie;
 use Illuminate\Http\Request;
 use App\Filters\V1\MoviesFilter;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreMovieRequest;
+use App\Http\Requests\V1\StoreMovieRequest;
 use App\Http\Resources\V1\MovieResource;
-use App\Http\Requests\UpdateMovieRequest;
+use App\Http\Requests\V1\UpdateMovieRequest;
 use App\Http\Resources\V1\MovieCollection;
 
 class MovieController extends Controller
@@ -19,13 +19,11 @@ class MovieController extends Controller
     public function index(Request $request)
     {
         $filer = new MoviesFilter();
-        $queryItems = $filer->transform($request); // [['column', 'operator', 'value']]
+        $filerItems = $filer->transform($request); // [['column', 'operator', 'value']]
 
-        if (count($queryItems) == 0) {
-            return new MovieCollection(Movie::paginate());
-        } else {
-            return new MovieCollection(Movie::where($queryItems)->paginate());
-        }
+        $movies = Movie::where($filerItems); // `Movie::where([])` === `Movie::all()`
+
+        return new MovieCollection($movies->paginate()->appends($request->query()));
     }
 
     /**
@@ -41,7 +39,7 @@ class MovieController extends Controller
      */
     public function store(StoreMovieRequest $request)
     {
-        //
+        return new MovieResource(Movie::create($request->all()));
     }
 
     /**

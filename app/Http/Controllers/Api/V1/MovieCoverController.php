@@ -6,9 +6,9 @@ use App\Models\MovieCover;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use App\Filters\V1\MovieCoversFilter;
-use App\Http\Requests\StoreMovieCoverRequest;
+use App\Http\Requests\V1\StoreMovieCoverRequest;
 use App\Http\Resources\V1\MovieCoverResource;
-use App\Http\Requests\UpdateMovieCoverRequest;
+use App\Http\Requests\V1\UpdateMovieCoverRequest;
 use App\Http\Resources\V1\MovieCoverCollection;
 
 class MovieCoverController extends Controller
@@ -19,13 +19,11 @@ class MovieCoverController extends Controller
     public function index(Request $request)
     {
         $filer = new MovieCoversFilter();
-        $queryItems = $filer->transform($request); // [['column', 'operator', 'value']]
+        $filerItems = $filer->transform($request); // [['column', 'operator', 'value']]
 
-        if (count($queryItems) == 0) {
-            return new MovieCoverCollection(MovieCover::paginate());
-        } else {
-            return new MovieCoverCollection(MovieCover::where($queryItems)->paginate());
-        }
+        $movieCovers = MovieCover::where($filerItems); // `MovieCover::where([])` === `MovieCover::all()`
+
+        return new MovieCoverCollection($movieCovers->paginate()->appends($request->query()));
     }
 
     /**
@@ -41,7 +39,7 @@ class MovieCoverController extends Controller
      */
     public function store(StoreMovieCoverRequest $request)
     {
-        //
+        return new MovieCoverResource(MovieCover::create($request->all()));
     }
 
     /**
