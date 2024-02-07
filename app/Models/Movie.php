@@ -4,11 +4,12 @@ namespace App\Models;
 
 use App\Models\MovieCover;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Movie extends Model
 {
-    use HasFactory;
+    use HasUuids, HasFactory;
 
     /**
      * Explicitly define the database table to use:
@@ -18,11 +19,33 @@ class Movie extends Model
     protected $table = 'movies';
 
     /**
-     * Lists Covers Belonging to a movie.
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'title',
+        'genres',
+        'country',
+        'description',
+        'uploaded_by',
+    ];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'genre' => 'array'
+    ];
+
+    /**
+     * Return a cover belonging to the movie.
      *
      * @return array<MovieCover>
      */
-    public function covers() {
-        return $this->hasMany(MovieCover::class);
+    public function cover() {
+        return $this->hasOne(MovieCover::class);
     }
 }

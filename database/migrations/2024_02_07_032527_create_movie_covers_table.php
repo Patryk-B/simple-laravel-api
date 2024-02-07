@@ -12,7 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('movie_covers', function (Blueprint $table) {
-            $table->id();
+            // uuid id:
+            $table->uuid('id')->primary(); // use either foreignId:
+                                           // - $table->foreignId('movie_covers_id')->constrained();
+                                           // - $table->foreignId('foooooooooooooo')->references('id')->on('movie_covers');
+
+            // other:
+            $table->foreignUuid('movie_id')->references('id')->on('movies');
+
+            // timestamps:
             $table->timestamps();
         });
     }

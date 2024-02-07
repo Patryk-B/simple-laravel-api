@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Movie;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,7 @@ class MovieCoverFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'movie_id' => Movie::factory(),
         ];
     }
 }

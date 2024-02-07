@@ -12,13 +12,21 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('movies', function (Blueprint $table) {
-            $table->id();
+            // uuid id:
+            $table->uuid('id')->primary(); // use either foreignId:
+                                           // - $table->foreignId('movie_id')->constrained();
+                                           // - $table->foreignId('fooooooo')->references('id')->on('movies');
+
+            // other:
             $table->string('title');
-            $table->string('cover');
-            $table->json('genre');
+            // $table->foreignUuid('cover')->references('id')->on('movie_covers')->nullable();
+            // $table->string('cover_uuid')->nullable();
+            $table->json('genres');
             $table->string('country');
             $table->longText('description');
-            $table->foreignUuid('uploaded_by')->references('id')->on('users')->nullable();
+            $table->foreignUuid('uploaded_by')->nullable()->references('id')->on('users');
+
+            // timestamps:
             $table->timestamps();
         });
     }
