@@ -3,18 +3,35 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Models\Movie;
+use Illuminate\Http\Request;
+use App\Services\V1\MovieQuery;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreMovieRequest;
+use App\Http\Resources\V1\MovieResource;
 use App\Http\Requests\UpdateMovieRequest;
+use App\Http\Resources\V1\MovieCollection;
 
 class MovieController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return Movie::all();
+        // return Movie::all()->map(
+        //     fn($movie) => new MovieResource($movie)
+        // );
+
+        // return new MovieCollection(Movie::paginate());
+
+        $filer = new MovieQuery();
+        $queryItems = $filer->transform($request); // [['column', 'operator', 'value']]
+
+        if (count($queryItems) == 0) {
+            return new MovieCollection(Movie::paginate());
+        } else {
+            return new MovieCollection(Movie::where($queryItems)->paginate());
+        }
     }
 
     /**
@@ -38,7 +55,8 @@ class MovieController extends Controller
      */
     public function show(Movie $movie)
     {
-        //
+        // WARNING: primary key is `uuid` not `id`. in dev use `localhost:80/api/v1/movies/<uuid>` url to show specific movie.
+        return new MovieResource($movie);
     }
 
     /**

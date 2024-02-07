@@ -12,6 +12,6 @@ class MovieCoverSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        // for now does nothing.
     }
 }

@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Models\MovieCover;
 use Illuminate\Routing\Controller;
+use App\Http\Resources\V1\MovieCoverResource;
+use App\Http\Resources\V1\MovieCoverCollection;
 use App\Http\Requests\StoreMovieCoverRequest;
 use App\Http\Requests\UpdateMovieCoverRequest;
 
@@ -14,7 +16,11 @@ class MovieCoverController extends Controller
      */
     public function index()
     {
-        return MovieCover::all();
+        // return MovieCover::all()->map(
+        //     fn($movieCover) => new MovieCoverResource($movieCover)
+        // );
+
+        return new MovieCoverCollection(MovieCover::paginate());
     }
 
     /**
@@ -38,7 +44,8 @@ class MovieCoverController extends Controller
      */
     public function show(MovieCover $movieCover)
     {
-        //
+        // WARNING: primary key is `uuid` not `id`. in dev use `localhost:80/api/v1/movies/<uuid>` url to show specific movie cover.
+        return new MovieCoverResource($movieCover);
     }
 
     /**
