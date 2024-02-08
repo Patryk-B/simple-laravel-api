@@ -72,6 +72,7 @@ class CoverController extends Controller
      */
     public function destroy(Cover $cover)
     {
-        //
+        $cover->delete();
+        return response()->json(null, 204);
     }
 }

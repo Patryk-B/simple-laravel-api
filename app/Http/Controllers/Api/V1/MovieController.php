@@ -73,6 +73,8 @@ class MovieController extends Controller
      */
     public function destroy(Movie $movie)
     {
-        //
+        // $movie->cover()->delete();
+        $movie->delete();
+        return response()->json(null, 204);
     }
 }

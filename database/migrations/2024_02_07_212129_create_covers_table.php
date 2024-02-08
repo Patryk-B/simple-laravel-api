@@ -18,7 +18,7 @@ return new class extends Migration
                                            // - $table->foreignId('foooooooooooooo')->references('id')->on('movie_covers');
 
             // other:
-            $table->foreignUuid('movie_id')->references('id')->on('movies');
+            $table->foreignUuid('movie_id')->references('id')->on('movies')->onDelete('cascade');
 
             // timestamps:
             $table->timestamps();
