@@ -1,6 +1,6 @@
 # dev env via `laravel/sail` and `docker`:
 
-follow these steps to setup the dev env (based on `laravel/sail` and `docker`):
+follow these steps to setup the local dev env (based on `laravel/sail` and `docker`):
 
 1. run `composer install`
 
