@@ -41,7 +41,7 @@ follow these steps to prepare the local dev env (based on `laravel/sail` and `do
 
 ### Extra:
 
-- local dev env is based on `docker` -> app can be rewritten as `microservice` (just write a proper `Dockerfile` and `docker-composer.yml` for production).
+- local dev env is based on `docker` -> app can be rewritten as `microservice` (via proper `Dockerfile` and `docker-composer.yml` configuration).
 
 - rest api is versioned (to let people opt-in when they are ready instead of forcing the update onto them).
 
