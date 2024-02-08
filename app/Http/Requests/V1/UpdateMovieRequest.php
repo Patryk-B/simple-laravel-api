@@ -28,6 +28,7 @@ class UpdateMovieRequest extends FormRequest
             return [
                 'title' => ['required', 'min:1'],
                 // 'cover' => ['required', 'image', 'mimes:jpg,png,jpeg,gif,svg', 'max:2048'],
+                'cover' => ['prohibited'],
                 'genre' => ['required', 'string', 'min:1'],
                 'country' => ['required', 'min:1'],
                 'description' => ['required', 'min:25']
@@ -36,6 +37,7 @@ class UpdateMovieRequest extends FormRequest
             return [
                 'title' => ['sometimes', 'required', 'min:1'],
                 // 'cover' => ['sometimes', 'required', 'image', 'mimes:jpg,png,jpeg,gif,svg', 'max:2048'],
+                'cover' => ['prohibited'],
                 'genre' => ['sometimes', 'required', 'string', 'min:1'],
                 'country' => ['sometimes', 'required', 'min:1'],
                 'description' => ['sometimes', 'required', 'min:25']
