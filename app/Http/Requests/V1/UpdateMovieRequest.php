@@ -27,6 +27,7 @@ class UpdateMovieRequest extends FormRequest
         if ($method == 'PUT') {
             return [
                 'title' => ['required', 'min:1'],
+                // 'cover' => ['required', 'image', 'mimes:jpg,png,jpeg,gif,svg', 'max:2048'],
                 'genre' => ['required', 'string', 'min:1'],
                 'country' => ['required', 'min:1'],
                 'description' => ['required', 'min:25']
@@ -34,6 +35,7 @@ class UpdateMovieRequest extends FormRequest
         } else if ($method == 'PATCH') {
             return [
                 'title' => ['sometimes', 'required', 'min:1'],
+                // 'cover' => ['sometimes', 'required', 'image', 'mimes:jpg,png,jpeg,gif,svg', 'max:2048'],
                 'genre' => ['sometimes', 'required', 'string', 'min:1'],
                 'country' => ['sometimes', 'required', 'min:1'],
                 'description' => ['sometimes', 'required', 'min:25']

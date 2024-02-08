@@ -22,7 +22,7 @@ class MovieController extends Controller
         $filer = new MoviesFilter();
         $filerItems = $filer->transform($request); // [['column', 'operator', 'value']]
 
-        $movies = Movie::where($filerItems); // `Movie::where([])` === `Movie::all()`
+        $movies = Movie::where($filerItems);
 
         return new MovieCollection($movies->paginate()->appends($request->query()));
     }
@@ -40,7 +40,17 @@ class MovieController extends Controller
      */
     public function store(StoreMovieRequest $request)
     {
-        return new MovieResource(Movie::create($request->all()));
+        $data = $request->validated();
+
+        $data['title'] = $request['title'];
+        $data['cover'] = $request->file('cover')->store('cover');
+        $data['genre'] = $request['genre'];
+        $data['country'] = $request['country'];
+        $data['description'] = $request['description'];
+
+        $movie = Movie::create($data);
+
+        return new MovieResource($movie);
     }
 
     /**

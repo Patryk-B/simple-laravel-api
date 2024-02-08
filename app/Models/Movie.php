@@ -25,27 +25,10 @@ class Movie extends Model
      */
     protected $fillable = [
         'title',
+        'cover',
         'genre',
         'country',
         'description',
         'uploaded_by',
     ];
-
-    // /**
-    //  * The attributes that should be cast.
-    //  *
-    //  * @var array<string, string>
-    //  */
-    // protected $casts = [
-    //     'genres' => 'array'
-    // ];
-
-    /**
-     * Return a cover belonging to the movie.
-     *
-     * @return array<Cover>
-     */
-    public function cover() {
-        return $this->hasOne(Cover::class);
-    }
 }

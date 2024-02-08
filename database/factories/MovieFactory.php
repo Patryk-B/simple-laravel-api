@@ -17,12 +17,9 @@ class MovieFactory extends Factory
      */
     public function definition(): array
     {
-        // $faker = Faker\Factory::create();
-        // $faker->addProvider(new Faker\Provider\Lorem($faker));
-        // $faker->addProvider(new Faker\Provider\en_US\Address($faker));
-
         return [
             'title' => $this->faker->words(rand(1, 3), true), // $this->faker->unique()->domainWord(),
+            'cover' => 'cover/'.$this->faker->uuid().'.jpg',
             'genre' => $this->faker->word(),
             'country' => $this->faker->country(),
             'description' => $this->faker->sentence(),

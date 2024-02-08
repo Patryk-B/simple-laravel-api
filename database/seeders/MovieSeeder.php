@@ -14,12 +14,7 @@ class MovieSeeder extends Seeder
     public function run(): void
     {
         Movie::factory()
-            ->count(25)
-            ->hasCover(1) //  method `Movie::factory()->hasFoo()` calls `\App\Models\Movie::foo()`.
-            ->create();
-
-        Movie::factory()
-            ->count(5)
+            ->count(30)
             ->create();
     }
 }
