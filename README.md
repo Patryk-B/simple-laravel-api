@@ -35,9 +35,9 @@ follow these steps to prepare the local dev env (based on `laravel/sail` and `do
 
 - 2b) Movies can be searched by title (syntax `http://localhost/api/v1/movies?title[eq]=quo%20vadis`).
 
-- ~~3a) User can like movies (`many-to-many` relation between `users` and `movies` tables)~~
+- ~~3a) User can like movies (`many-to-many` relation between `users` and `movies` tables).~~
 
-- ~~3b) Movie covers are automatically resized to a specified width and height~~.
+- ~~3b) Movie covers are automatically resized to a specified width and height.~~
 
 ### Extra:
 
