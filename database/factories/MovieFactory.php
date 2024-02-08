@@ -22,7 +22,7 @@ class MovieFactory extends Factory
         // $faker->addProvider(new Faker\Provider\en_US\Address($faker));
 
         return [
-            'title' => $this->faker->unique()->domainWord(),
+            'title' => $this->faker->words(rand(1, 3), true), // $this->faker->unique()->domainWord(),
             'genres' => $this->faker->words(rand(1, 3), false),
             'country' => $this->faker->country(),
             'description' => $this->faker->sentence(),

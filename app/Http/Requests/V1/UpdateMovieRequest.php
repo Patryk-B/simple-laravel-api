@@ -21,8 +21,25 @@ class UpdateMovieRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            //
-        ];
+        $method = $this->method();
+        if ($method == 'PUT') {
+            return [
+                'title' => ['required', 'min:1'],
+                'genres' => ['required', 'array', 'min:1'],
+                'genres.*' => ['required', 'string', 'distinct', 'min:1'],
+                'country' => ['required', 'min:1'],
+                'description' => ['required', 'min:25']
+            ];
+        } else if ($method == 'PATCH') {
+            return [
+                'title' => ['sometimes', 'required', 'min:1'],
+                'genres' => ['sometimes', 'required', 'array', 'min:1'],
+                'genres.*' => ['sometimes', 'required', 'string', 'distinct', 'min:1'],
+                'country' => ['sometimes', 'required', 'min:1'],
+                'description' => ['sometimes', 'required', 'min:25']
+            ];
+        } else {
+            // TODO: throw error.
+        }
     }
 }

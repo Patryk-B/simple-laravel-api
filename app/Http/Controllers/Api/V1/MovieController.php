@@ -6,10 +6,11 @@ use App\Models\Movie;
 use Illuminate\Http\Request;
 use App\Filters\V1\MoviesFilter;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\V1\StoreMovieRequest;
 use App\Http\Resources\V1\MovieResource;
-use App\Http\Requests\V1\UpdateMovieRequest;
 use App\Http\Resources\V1\MovieCollection;
+use App\Http\Requests\V1\StoreMovieRequest;
+use App\Http\Requests\V1\UpdateMovieRequest;
+use App\Http\Requests\V1\BulkStoreMovieRequest;
 
 class MovieController extends Controller
 {
@@ -64,7 +65,7 @@ class MovieController extends Controller
      */
     public function update(UpdateMovieRequest $request, Movie $movie)
     {
-        //
+        $movie->update($request->all());
     }
 
     /**

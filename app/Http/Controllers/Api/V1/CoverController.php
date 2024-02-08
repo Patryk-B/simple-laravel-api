@@ -64,7 +64,7 @@ class CoverController extends Controller
      */
     public function update(UpdateCoverRequest $request, Cover $cover)
     {
-        //
+        $cover->update($request->all());
     }
 
     /**

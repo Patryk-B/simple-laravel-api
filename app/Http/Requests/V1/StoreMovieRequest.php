@@ -29,6 +29,4 @@ class StoreMovieRequest extends FormRequest
             'description' => ['required', 'min:25']
         ];
     }
-
-
 }

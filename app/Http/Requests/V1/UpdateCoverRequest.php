@@ -21,8 +21,26 @@ class UpdateCoverRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            //
-        ];
+        $method = $this->method();
+        if ($method == 'PUT') {
+            return [
+                'movieId' => ['required', 'uuid'],
+            ];
+        } else if ($method == 'PATCH') {
+            return [
+                'movieId' => ['sometimes', 'required', 'uuid'],
+            ];
+        } else {
+            // TODO: throw error.
+        }
+    }
+
+    /**
+     *
+     */
+    protected function prepareForValidation() {
+        $this->merge([
+            'movie_id' => $this->movieId,
+        ]);
     }
 }
