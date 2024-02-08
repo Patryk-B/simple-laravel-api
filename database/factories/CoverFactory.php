@@ -19,6 +19,7 @@ class CoverFactory extends Factory
     {
         return [
             'movie_id' => Movie::factory(),
+            'image' => $this->faker->word().'.jpg'
         ];
     }
 }

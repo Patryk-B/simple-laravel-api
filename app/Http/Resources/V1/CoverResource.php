@@ -17,6 +17,7 @@ class CoverResource extends JsonResource
         return [
             'id' => $this->id,
             'movieId' => $this->movie_id,
+            'image' => $this->image,
         ];
     }
 }

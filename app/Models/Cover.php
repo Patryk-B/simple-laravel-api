@@ -25,6 +25,7 @@ class Cover extends Model
      */
     protected $fillable = [
         'movie_id',
+        'image'
     ];
 
     /**

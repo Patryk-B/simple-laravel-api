@@ -19,7 +19,7 @@ return new class extends Migration
 
             // other:
             $table->string('title');
-            $table->json('genres');
+            $table->string('genre');
             $table->string('country');
             $table->longText('description');
             $table->foreignUuid('uploaded_by')->nullable()->references('id')->on('users');

@@ -19,6 +19,7 @@ return new class extends Migration
 
             // other:
             $table->foreignUuid('movie_id')->references('id')->on('movies')->onDelete('cascade');
+            $table->string('image');
 
             // timestamps:
             $table->timestamps();

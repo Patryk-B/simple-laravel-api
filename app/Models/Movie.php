@@ -25,20 +25,20 @@ class Movie extends Model
      */
     protected $fillable = [
         'title',
-        'genres',
+        'genre',
         'country',
         'description',
         'uploaded_by',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'genres' => 'array'
-    ];
+    // /**
+    //  * The attributes that should be cast.
+    //  *
+    //  * @var array<string, string>
+    //  */
+    // protected $casts = [
+    //     'genres' => 'array'
+    // ];
 
     /**
      * Return a cover belonging to the movie.

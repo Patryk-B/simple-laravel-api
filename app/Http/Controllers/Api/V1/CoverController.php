@@ -39,7 +39,12 @@ class CoverController extends Controller
      */
     public function store(StoreCoverRequest $request)
     {
-        return new CoverResource(Cover::create($request->all()));
+        $validatedData = $request->validated();
+        $validatedData['movie_id'] = $request->movieId;
+        $validatedData['image'] = $request->file('image')->store('image');
+        $cover = Cover::create($validatedData);
+
+        return new CoverResource($cover);
     }
 
     /**

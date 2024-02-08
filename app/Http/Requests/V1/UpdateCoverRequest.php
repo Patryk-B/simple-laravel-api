@@ -27,10 +27,12 @@ class UpdateCoverRequest extends FormRequest
         if ($method == 'PUT') {
             return [
                 'movieId' => ['required', 'uuid'],
+                'image' => ['required', 'image', 'mimes:jpg,png,jpeg,gif,svg', 'max:2048'],
             ];
         } else if ($method == 'PATCH') {
             return [
                 'movieId' => ['sometimes', 'required', 'uuid'],
+                'image' => ['sometimes', 'required', 'image', 'mimes:jpg,png,jpeg,gif,svg', 'max:2048'],
             ];
         } else {
             // TODO: throw error.

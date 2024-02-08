@@ -1,4 +1,4 @@
-# dev env via `laravel/sail` and `docker`:
+## dev env via `laravel/sail` and `docker`:
 
 follow these steps to setup the local dev env (based on `laravel/sail` and `docker`):
 
@@ -21,7 +21,7 @@ follow these steps to setup the local dev env (based on `laravel/sail` and `dock
     - the page will appear only one time during the 1st visit. Any subsequential visit will result in an empty response. Please save tokens somewhere safe they are needed to authenticate api requests.\
     - this step needs to be repeated after every `<php|sail> artisan migrate fresh --seed` (or `npm run __dev_<windows|linux>_sail_artisan_migrate_fresh_seed`).
 
-# features:
+## features:
 
 - simple user auth mockup\
 **IMPORTANT**: to generate user tokes for auth visit http://localhost/mockSetup. The page will appear only one time during the 1st visit. Any subsequential visit will result in an empty response
@@ -31,3 +31,12 @@ follow these steps to setup the local dev env (based on `laravel/sail` and `dock
 please see: http://www.vinaysahni.com/best-practices-for-a-pragmatic-restful-api
 
 - movies can have a cover uploaded via api
+
+- movies can be queried with following syntax: `http://localhost/api/v1/movies?title[eq]=foo`
+
+## api:
+
+Simply send requests to:
+- http://localhost/api/v1/movies (supports queries: http://localhost/api/v1/movies?title[eq]=foo)
+- http://localhost/api/v1/covers (supports queries: http://localhost/api/v1/movies?movieId[eq]=foo)
+- http://localhost/api/v1/genres (supports queries: http://localhost/api/v1/movies?name[eq]=foo)

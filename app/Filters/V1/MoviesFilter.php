@@ -16,7 +16,6 @@ class MoviesFilter extends ApiFilter {
     protected $safeParams = [
         'title' => ['eq'],
         'country' => ['eq'],
-        // 'genres' => ['in'], // TODO query json column.
     ];
 
     /**
