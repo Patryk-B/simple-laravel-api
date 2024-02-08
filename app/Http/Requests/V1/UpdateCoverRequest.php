@@ -11,7 +11,9 @@ class UpdateCoverRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true; // just for now.
+        $user = $this->user();
+
+        return $user != null && $user->tokenCan('update'); // 'cover:update'
     }
 
     /**

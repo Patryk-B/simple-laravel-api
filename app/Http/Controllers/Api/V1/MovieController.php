@@ -48,7 +48,6 @@ class MovieController extends Controller
      */
     public function show(Movie $movie)
     {
-        // WARNING: primary key is `uuid` not `id`. in dev use `localhost:80/api/v1/movies/<uuid>` url to show specific movie.
         return new MovieResource($movie);
     }
 

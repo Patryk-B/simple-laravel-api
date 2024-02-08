@@ -47,7 +47,6 @@ class CoverController extends Controller
      */
     public function show(Cover $cover)
     {
-        // WARNING: primary key is `uuid` not `id`. in dev use `localhost:80/api/v1/movies/<uuid>` url to show specific movie cover.
         return new CoverResource($cover);
     }
 
