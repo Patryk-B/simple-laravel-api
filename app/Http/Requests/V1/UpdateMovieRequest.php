@@ -47,8 +47,9 @@ class UpdateMovieRequest extends FormRequest
                 'country' => ['sometimes', 'required', 'string', 'min:1'],
                 'description' => ['sometimes', 'required', 'string', 'min:25']
             ];
-        } else {
-            // TODO: throw sanity error.
         }
+
+        // TODO: throw error: unknown method / sanity check.
+
     }
 }

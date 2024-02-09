@@ -90,7 +90,7 @@ class MovieController extends Controller
         // Validate request:
         $validated = $request->validated(); // will throw `ValidationException` on invalid data.
 
-        // Update user:
+        // Update movie:
         $movie->update([
             'title' => $validated['title'] ?? $movie->title,
             'country' => $validated['country'] ?? $movie->country,
