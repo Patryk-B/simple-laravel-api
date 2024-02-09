@@ -42,29 +42,24 @@ class MovieController extends Controller
     public function store(StoreMovieRequest $request)
     {
         // Validate request:
-        $request->validated(); // will throw `ValidationException` on invalid data.
+        $validated = $request->validated(); // will throw `ValidationException` on invalid data.
 
         // Create new movie:
         $movie = Movie::create([
-            'title' => $request['title'],
-            'cover' => $request->file('cover')->store('cover'),
-            'country' => $request['country'],
-            'description' => $request['description']
+            'title' => $validated['title'],
+            'cover' => $validated['cover']->store('cover'),
+            'country' => $validated['country'],
+            'description' => $validated['description']
         ]);
 
         // Parse genres:
-        $genres = collect($request['genres'])->map(
+        $genres = collect($validated['genres'])->map(
             fn($genre) => Genre::where('name', '=', $genre)->firstOrFail()
         );
         $genreUuids = $genres->pluck('id')->toArray();
 
         // Attach genres:
         $movie->genres()->attach($genreUuids);
-
-        // $test = $movie->genres()->get()->pluck('id')->toArray();
-        // $movie->genres()->detach($test);
-        // $movie->genres()->detach();
-        // dump($test);
 
         // Return resource:
         return new MovieResource($movie);
@@ -92,18 +87,18 @@ class MovieController extends Controller
     public function update(UpdateMovieRequest $request, Movie $movie)
     {
         // Validate request:
-        $request->validated(); // will throw `ValidationException` on invalid data.
+        $validated = $request->validated(); // will throw `ValidationException` on invalid data.
 
-        // update user:
+        // Update user:
         $movie->update([
-            'title' => $request['title'] ?? $movie->title,
-            'country' => $request['country'] ?? $movie->country,
-            'description' => $request['description'] ?? $movie->description
+            'title' => $validated['title'] ?? $movie->title,
+            'country' => $validated['country'] ?? $movie->country,
+            'description' => $validated['description'] ?? $movie->description
         ]);
 
         // Parse genres:
         $genres = collect(
-            $request['genres'] ?? $movie->genres()->get()
+            $validated['genres'] ?? $movie->genres()->get()->pluck('name')
         )->map(
             fn($genre) => Genre::where('name', '=', $genre)->firstOrFail()
         );
