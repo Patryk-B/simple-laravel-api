@@ -13,10 +13,13 @@ follow these steps to prepare the local dev env (based on `laravel/sail` and `do
 5. run either `npm run dev_windows_start` or `npm run dev_linux_start`\
     (this will start the app via `laravel/sail` and `docker`)
 
-6. run either `npm run __dev_windows_sail_artisan_migrate_fresh_seed` or `npm run __dev_linux_sail_artisan_migrate_fresh_seed`\
-    (this will migrate and seed the database)
+6. run either `npm run __dev_windows_sail_artisan_migrate` or `npm run __dev_linux_sail_artisan_migrate`\
+    (this will migrate the database)
 
-7. open http://localhost/mockSetup in the `browser` or `postman` to generate access tokens for the local dev env.\
+7. run either `npm run __dev_windows_sail_artisan_db_seed` or `npm run __dev_linux_sail_artisan_db_seed`\
+    (this will seed the database)
+
+8. open http://localhost/mockSetup in the `browser` or `postman` to generate access tokens for the local dev env.\
     **IMPORTANT**:
     - the page will appear only one time during the 1st visit. Any subsequential visit will result in an empty response. Please save tokens somewhere, because they are needed to authenticate the api requests.
     - this step needs to be repeated after every `<php|sail> artisan migrate fresh --seed` (or `npm run __dev_<windows|linux>_sail_artisan_migrate_fresh_seed`).
