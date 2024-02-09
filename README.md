@@ -50,7 +50,7 @@ follow these steps to prepare the local dev env (based on `laravel/sail` and `do
 
 - rest api is versioned (to let people opt-in when they are ready instead of forcing the update onto them).
 
-- rest api requires authentication (currently `/register`, `/login`, `/logout` are not implemented, please use `/mockSetup` to generate access tokens for local dev env & `postman`).
+- rest api requires authentication (currently `/register`, `/login`, `/logout` are not implemented, please use `/mockSetup` to generate access tokens for `postman`).
 
 ----
 
