@@ -2,13 +2,13 @@
 
 namespace App\Models;
 
-use App\Models\Genre;
+use App\Models\Movie;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class Movie extends Model
+class Genre extends Model
 {
     use HasUuids, HasFactory;
 
@@ -17,7 +17,7 @@ class Movie extends Model
      *
      * @var string
      */
-    protected $table = 'movies';
+    protected $table = 'genres';
 
     /**
      * The attributes that are mass assignable.
@@ -25,19 +25,14 @@ class Movie extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'title',
-        'cover',
-        // 'genre',
-        'country',
-        'description',
-        'uploaded_by',
+        'name',
     ];
 
     /**
-     * Get `genres` that belong to the current `movie`.
+     * Get `movies` that belong to the current `genre`.
      */
-    public function genres()
+    public function movies()
     {
-        return $this->belongsToMany(Genre::class);
+        return $this->belongsToMany(Movie::class);
     }
 }

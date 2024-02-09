@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Models\Genre;
 use App\Models\Movie;
 use Illuminate\Http\Request;
 use App\Filters\V1\MoviesFilter;
@@ -40,16 +41,32 @@ class MovieController extends Controller
      */
     public function store(StoreMovieRequest $request)
     {
-        $data = $request->validated();
+        // Validate request:
+        $request->validated(); // will throw `ValidationException` on invalid data.
 
-        $data['title'] = $request['title'];
-        $data['cover'] = $request->file('cover')->store('cover');
-        $data['genre'] = $request['genre'];
-        $data['country'] = $request['country'];
-        $data['description'] = $request['description'];
+        // Create new movie:
+        $movie = Movie::create([
+            'title' => $request['title'],
+            'cover' => $request->file('cover')->store('cover'),
+            'country' => $request['country'],
+            'description' => $request['description']
+        ]);
 
-        $movie = Movie::create($data);
+        // Parse genres:
+        $genres = collect($request['genres'])->map(
+            fn($genre) => Genre::where('name', '=', $genre)->firstOrFail()
+        );
+        $genreUuids = $genres->pluck('id')->toArray();
 
+        // Attach genres:
+        $movie->genres()->attach($genreUuids);
+
+        // $test = $movie->genres()->get()->pluck('id')->toArray();
+        // $movie->genres()->detach($test);
+        // $movie->genres()->detach();
+        // dump($test);
+
+        // Return resource:
         return new MovieResource($movie);
     }
 
@@ -74,7 +91,30 @@ class MovieController extends Controller
      */
     public function update(UpdateMovieRequest $request, Movie $movie)
     {
-        $movie->update($request->all());
+        // Validate request:
+        $request->validated(); // will throw `ValidationException` on invalid data.
+
+        // update user:
+        $movie->update([
+            'title' => $request['title'] ?? $movie->title,
+            'country' => $request['country'] ?? $movie->country,
+            'description' => $request['description'] ?? $movie->description
+        ]);
+
+        // Parse genres:
+        $genres = collect(
+            $request['genres'] ?? $movie->genres()->get()
+        )->map(
+            fn($genre) => Genre::where('name', '=', $genre)->firstOrFail()
+        );
+        $genreUuids = $genres->pluck('id')->toArray();
+
+        // Detach old & attach new genres:
+        $movie->genres()->detach();
+        $movie->genres()->attach($genreUuids);
+
+        // Return resource:
+        return new MovieResource($movie);
     }
 
     /**

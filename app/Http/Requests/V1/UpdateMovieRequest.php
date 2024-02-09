@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\V1;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateMovieRequest extends FormRequest
@@ -26,24 +27,28 @@ class UpdateMovieRequest extends FormRequest
         $method = $this->method();
         if ($method == 'PUT') {
             return [
-                'title' => ['required', 'min:1'],
-                // 'cover' => ['required', 'image', 'mimes:jpg,png,jpeg,gif,svg', 'max:2048'],
+                'title' => ['required', 'string', 'min:1'],
                 'cover' => ['prohibited'],
-                'genre' => ['required', 'string', 'min:1'],
-                'country' => ['required', 'min:1'],
-                'description' => ['required', 'min:25']
+                'genres' => ['required', 'array', 'min:1'],
+                'genres.*' => ['required', 'string', Rule::in([
+                    'Action','Adventure', 'Animation', 'Biography', 'Comedy', 'Costume', 'Crime', 'Documentary', 'Drama', 'Family', 'Fantasy', 'History', 'Horror', 'Kung-fu', 'Musical', 'Mystery', 'Romance', 'Sci-Fi', 'Talk-Show', 'Thriller', 'War', 'Western'
+                ])],
+                'country' => ['required', 'string', 'min:1'],
+                'description' => ['required', 'string', 'min:25']
             ];
         } else if ($method == 'PATCH') {
             return [
-                'title' => ['sometimes', 'required', 'min:1'],
-                // 'cover' => ['sometimes', 'required', 'image', 'mimes:jpg,png,jpeg,gif,svg', 'max:2048'],
-                'cover' => ['prohibited'],
-                'genre' => ['sometimes', 'required', 'string', 'min:1'],
-                'country' => ['sometimes', 'required', 'min:1'],
-                'description' => ['sometimes', 'required', 'min:25']
+                'title' => ['sometimes', 'required', 'string', 'min:1'],
+                'cover' => ['sometimes', 'prohibited'],
+                'genres' => ['sometimes', 'required', 'array', 'min:1'],
+                'genres.*' => ['sometimes', 'required', 'string', Rule::in([
+                    'Action','Adventure', 'Animation', 'Biography', 'Comedy', 'Costume', 'Crime', 'Documentary', 'Drama', 'Family', 'Fantasy', 'History', 'Horror', 'Kung-fu', 'Musical', 'Mystery', 'Romance', 'Sci-Fi', 'Talk-Show', 'Thriller', 'War', 'Western'
+                ])],
+                'country' => ['sometimes', 'required', 'string', 'min:1'],
+                'description' => ['sometimes', 'required', 'string', 'min:25']
             ];
         } else {
-            // TODO: throw error.
+            // TODO: throw sanity error.
         }
     }
 }

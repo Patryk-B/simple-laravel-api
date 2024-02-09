@@ -19,13 +19,6 @@ class MoviesFilter extends ApiFilter {
     ];
 
     /**
-     * database uses `underscore_case`, json standard expects `camelCase`, map between the two.
-     */
-    protected $columnMap = [
-        // 'uploadedBy' => 'uploaded_by'
-    ];
-
-    /**
      * map operators
      */
     protected $operatorMap = [

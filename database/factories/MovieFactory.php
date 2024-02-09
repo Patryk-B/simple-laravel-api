@@ -20,7 +20,7 @@ class MovieFactory extends Factory
         return [
             'title' => $this->faker->words(rand(1, 3), true), // $this->faker->unique()->domainWord(),
             'cover' => 'cover/'.$this->faker->uuid().'.jpg',
-            'genre' => $this->faker->word(),
+            // 'genre' => $this->faker->word(),
             'country' => $this->faker->country(),
             'description' => $this->faker->sentence(),
             'uploaded_by' => null,

@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('movies', function (Blueprint $table) {
-            // uuid id:
+            // uuid:
             $table->uuid('id')->primary(); // use either foreignId:
                                            // - $table->foreignId('movie_id')->constrained();
                                            // - $table->foreignId('fooooooo')->references('id')->on('movies');
@@ -20,7 +20,7 @@ return new class extends Migration
             // other:
             $table->string('title');
             $table->string('cover');
-            $table->string('genre');
+            // $table->string('genre');
             $table->string('country');
             $table->longText('description');
             $table->foreignUuid('uploaded_by')->nullable()->references('id')->on('users');
