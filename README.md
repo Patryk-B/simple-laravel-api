@@ -64,3 +64,18 @@ follow these steps to prepare the local dev env (based on `laravel/sail` and `do
     - `/register`, `/login`, `/logout` routes
     - user roles like `Admin`, `Publisher`, `Basic`, ... (many-to-many relation).
     - ability for a user to like a movie.
+
+----
+
+## WARNING:
+
+There is a well known error with postman that prevents people from using `PUT` and `PATCH` requests with `form-data` (which is necessary if we want to upload a image).
+
+Please see:
+https://stackoverflow.com/questions/50691938/patch-and-put-request-does-not-working-with-form-data
+
+### Quick `PUT` work around:
+![plot](./.README/assets/postman_workaround_PUT.png)
+
+### Quick `PATCH` work around:
+![plot](./.README/assets/postman_workaround_PATCH.png)
