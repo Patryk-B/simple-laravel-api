@@ -54,11 +54,11 @@ follow these steps to prepare the local dev env (based on `laravel/sail` and `do
 
 ----
 
-## Things I would do if i had more time:
+## TODO:
 
-1. TESTS !!! I would write tests for every `migration`, `seeder`, `factory`, `model`, `controller`, `resource`, `route`, ...
+1. TESTS !!! write tests for every `migration`, `seeder`, `factory`, `model`, `controller`, `resource`, `route`, ...
 
-2. I would want to recreate this app as a `microservice` (via proper `Dockerfile` and `docker-composer.yml` configuration).
+2. recreate this app as a `microservice` (via proper `Dockerfile` and `docker-composer.yml` configuration).
 
 3. The `user` system:
     - `/register`, `/login`, `/logout` routes
