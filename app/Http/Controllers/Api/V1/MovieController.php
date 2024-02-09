@@ -7,6 +7,7 @@ use App\Models\Movie;
 use Illuminate\Http\Request;
 use App\Filters\V1\MoviesFilter;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Resources\V1\MovieResource;
 use App\Http\Resources\V1\MovieCollection;
 use App\Http\Requests\V1\StoreMovieRequest;
@@ -96,6 +97,14 @@ class MovieController extends Controller
             'description' => $validated['description'] ?? $movie->description
         ]);
 
+        // Update cover:
+        if ($validated['cover'] ?? null) {
+            Storage::delete($movie->cover);
+            $movie->update([
+               'cover' => $validated['cover']->store('cover')
+            ]);
+        }
+
         // Parse genres:
         $genres = collect(
             $validated['genres'] ?? $movie->genres()->get()->pluck('name')
@@ -104,7 +113,7 @@ class MovieController extends Controller
         );
         $genreUuids = $genres->pluck('id')->toArray();
 
-        // Detach old & attach new genres:
+        // Update genres (detach old & attach new):
         $movie->genres()->detach();
         $movie->genres()->attach($genreUuids);
 

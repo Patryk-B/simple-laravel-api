@@ -28,7 +28,7 @@ class UpdateMovieRequest extends FormRequest
         if ($method == 'PUT') {
             return [
                 'title' => ['required', 'string', 'min:1'],
-                'cover' => ['prohibited'],
+                'cover' => ['required', 'image', 'mimes:jpg,png,jpeg,gif,svg', 'max:2048'],
                 'genres' => ['required', 'array', 'min:1'],
                 'genres.*' => ['required', 'string', Rule::in([
                     'Action','Adventure', 'Animation', 'Biography', 'Comedy', 'Costume', 'Crime', 'Documentary', 'Drama', 'Family', 'Fantasy', 'History', 'Horror', 'Kung-fu', 'Musical', 'Mystery', 'Romance', 'Sci-Fi', 'Talk-Show', 'Thriller', 'War', 'Western'
@@ -39,7 +39,7 @@ class UpdateMovieRequest extends FormRequest
         } else if ($method == 'PATCH') {
             return [
                 'title' => ['sometimes', 'required', 'string', 'min:1'],
-                'cover' => ['sometimes', 'prohibited'],
+                'cover' => ['sometimes', 'required', 'image', 'mimes:jpg,png,jpeg,gif,svg', 'max:2048'],
                 'genres' => ['sometimes', 'required', 'array', 'min:1'],
                 'genres.*' => ['sometimes', 'required', 'string', Rule::in([
                     'Action','Adventure', 'Animation', 'Biography', 'Comedy', 'Costume', 'Crime', 'Documentary', 'Drama', 'Family', 'Fantasy', 'History', 'Horror', 'Kung-fu', 'Musical', 'Mystery', 'Romance', 'Sci-Fi', 'Talk-Show', 'Thriller', 'War', 'Western'
