@@ -47,9 +47,6 @@ class MovieController extends Controller
         // Validate request:
         $validated = $request->validated(); // will throw `ValidationException` on invalid data.
 
-        // Resize cover:
-
-
         // Create new movie:
         $movie = Movie::create([
             'title' => $validated['title'],
@@ -139,15 +136,16 @@ class MovieController extends Controller
      * resize image before uploading
      */
     public function resizeCover(UploadedFile $file) {
+        $width = 500;
+        $height = 500;
         $destination = 'cover';
         Storage::makeDirectory($destination, 0755);
         $coverName = Str::orderedUuid().'.'.$file->extension();
         $coverPath = storage_path('app/'.$destination).'/'.$coverName;
         $cover = InterventionImage::make($file)
-            ->resize(500, 500)
+            ->resize($width, $height)
             ->save($coverPath);
 
-        // dump($coverPath);
         return $destination.'/'.$coverName;
     }
 }

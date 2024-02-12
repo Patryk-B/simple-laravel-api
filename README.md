@@ -43,8 +43,7 @@ follow these steps to prepare the local dev env (based on `laravel/sail` and `do
 - ~~3a) User can like movies~~\
     (can be implemented as `many-to-many` relation between `users` and `movies` tables).
 
-- 3b) Movie covers are automatically resized to a specified width and height.\
-    (can be done with `intervention/image` package)
+- 3b) Movie covers are automatically resized to a specified width and height.
 
 ### Extra:
 
