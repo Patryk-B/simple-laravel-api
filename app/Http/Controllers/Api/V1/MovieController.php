@@ -4,15 +4,17 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Models\Genre;
 use App\Models\Movie;
+use InterventionImage;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Filters\V1\MoviesFilter;
+use Illuminate\Http\UploadedFile;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Resources\V1\MovieResource;
 use App\Http\Resources\V1\MovieCollection;
 use App\Http\Requests\V1\StoreMovieRequest;
 use App\Http\Requests\V1\UpdateMovieRequest;
-use App\Http\Requests\V1\BulkStoreMovieRequest;
 
 class MovieController extends Controller
 {
@@ -45,10 +47,13 @@ class MovieController extends Controller
         // Validate request:
         $validated = $request->validated(); // will throw `ValidationException` on invalid data.
 
+        // Resize cover:
+
+
         // Create new movie:
         $movie = Movie::create([
             'title' => $validated['title'],
-            'cover' => $validated['cover']->store('cover'),
+            'cover' => $this->resizeCover($validated['cover']),
             'country' => $validated['country'],
             'description' => $validated['description']
         ]);
@@ -101,7 +106,7 @@ class MovieController extends Controller
         if ($validated['cover'] ?? null) {
             Storage::delete($movie->cover);
             $movie->update([
-               'cover' => $validated['cover']->store('cover')
+               'cover' => $this->resizeCover($validated['cover'])
             ]);
         }
 
@@ -128,5 +133,21 @@ class MovieController extends Controller
     {
         $movie->delete();
         return response()->json(null, 204);
+    }
+
+    /**
+     * resize image before uploading
+     */
+    public function resizeCover(UploadedFile $file) {
+        $destination = 'cover';
+        Storage::makeDirectory($destination, 0755);
+        $coverName = Str::orderedUuid().'.'.$file->extension();
+        $coverPath = storage_path('app/'.$destination).'/'.$coverName;
+        $cover = InterventionImage::make($file)
+            ->resize(500, 500)
+            ->save($coverPath);
+
+        // dump($coverPath);
+        return $destination.'/'.$coverName;
     }
 }

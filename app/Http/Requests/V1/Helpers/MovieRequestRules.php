@@ -44,8 +44,8 @@ Class MovieRequestRules {
     public static function patch(): array
     {
         $restrictions = MovieRequestRules::base();
-        foreach ($restrictions as $$restriction) {
-            array_unshift($restriction , 'sometimes');
+        foreach ($restrictions as &$restriction) {
+            array_unshift($restriction, 'sometimes');
         }
 
         return $restrictions;

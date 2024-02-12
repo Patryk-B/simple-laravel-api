@@ -2,24 +2,26 @@
 
 follow these steps to prepare the local dev env (based on `laravel/sail` and `docker`):
 
-1. run `composer install`
+1. run `composer update`
 
-2. run `cp .env.example .env`
+2. run `composer install`
 
-3. run `php artisan key:generate --ansi`
+3. run `cp .env.example .env`
 
-4. open `.env` file and fill `DB_PASSWORD` field
+4. run `php artisan key:generate --ansi`
 
-5. run either `npm run dev_windows_start` or `npm run dev_linux_start`\
+5. open `.env` file and fill `DB_PASSWORD` field
+
+6. run either `npm run dev_windows_start` or `npm run dev_linux_start`\
     (this will start the app via `laravel/sail` and `docker`)
 
-6. run either `npm run __dev_windows_sail_artisan_migrate` or `npm run __dev_linux_sail_artisan_migrate`\
+7. run either `npm run __dev_windows_sail_artisan_migrate` or `npm run __dev_linux_sail_artisan_migrate`\
     (this will migrate the database)
 
-7. run either `npm run __dev_windows_sail_artisan_db_seed` or `npm run __dev_linux_sail_artisan_db_seed`\
+8. run either `npm run __dev_windows_sail_artisan_db_seed` or `npm run __dev_linux_sail_artisan_db_seed`\
     (this will seed the database)
 
-8. open http://localhost/mockSetup in the `browser` or `postman` to generate access tokens for the local dev env.\
+9. open http://localhost/mockSetup in the `browser` or `postman` to generate access tokens for the local dev env.\
     **IMPORTANT**:
     - the page will appear only one time during the 1st visit. Any subsequential visit will result in an empty response. Please save tokens somewhere, because they are needed to authenticate the api requests.
     - this step needs to be repeated after every `<php|sail> artisan migrate fresh --seed` (or `npm run __dev_<windows|linux>_sail_artisan_migrate_fresh_seed`).
@@ -32,7 +34,7 @@ follow these steps to prepare the local dev env (based on `laravel/sail` and `do
 
 - 1a) CRUD of movies (`http://localhost/api/v1/movies` supports `GET`, `POST`, `PUT`, `PATCH`, `DELETE` requests).
 
-- 1b) Movies' `POST` request requires a filed `cover` which is an image file.
+- 1b) Movies' `POST`, `PUT`, `PATCH` requests require a filed `cover` which is an image file.
 
 - 2a) Movies can have more than 1 genre (`many-to-many` relation between `genres` and `movies` tables).
 
@@ -41,7 +43,7 @@ follow these steps to prepare the local dev env (based on `laravel/sail` and `do
 - ~~3a) User can like movies~~\
     (can be implemented as `many-to-many` relation between `users` and `movies` tables).
 
-- ~~3b) Movie covers are automatically resized to a specified width and height.~~\
+- 3b) Movie covers are automatically resized to a specified width and height.\
     (can be done with `intervention/image` package)
 
 ### Extra:
