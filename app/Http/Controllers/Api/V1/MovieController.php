@@ -55,14 +55,11 @@ class MovieController extends Controller
             'description' => $validated['description']
         ]);
 
-        // Parse genres:
-        $genres = collect($validated['genres'])->map(
-            fn($genre) => Genre::where('name', '=', $genre)->firstOrFail()
-        );
-        $genreUuids = $genres->pluck('id')->toArray();
-
         // Attach genres:
-        $movie->genres()->attach($genreUuids);
+        $GenreUUIDs = $this->getGenreUUIDs(
+            $validated['genres']
+        );
+        $movie->genres()->attach($GenreUUIDs);
 
         // Return resource:
         return new MovieResource($movie);
@@ -107,17 +104,12 @@ class MovieController extends Controller
             ]);
         }
 
-        // Parse genres:
-        $genres = collect(
-            $validated['genres'] ?? $movie->genres()->get()->pluck('name')
-        )->map(
-            fn($genre) => Genre::where('name', '=', $genre)->firstOrFail()
-        );
-        $genreUuids = $genres->pluck('id')->toArray();
-
         // Update genres (detach old & attach new):
+        $GenreUUIDs = $this->getGenreUUIDs(
+            $validated['genres'] ?? $movie->genres()->get()->pluck('name')
+        );
         $movie->genres()->detach();
-        $movie->genres()->attach($genreUuids);
+        $movie->genres()->attach($GenreUUIDs);
 
         // Return resource:
         return new MovieResource($movie);
@@ -133,18 +125,28 @@ class MovieController extends Controller
     }
 
     /**
+     * parse genres
+     */
+    public function getGenreUUIDs(array $genres)
+    {
+        $GenreUUIDs = Genre::whereIn('name', $genres)->pluck('id')->toArray();
+        return $GenreUUIDs;
+    }
+
+    /**
      * resize image before uploading
      */
-    public function resizeCover(UploadedFile $file) {
+    public function resizeCover(UploadedFile $file)
+    {
         $width = 500;
         $height = 500;
         $destination = 'cover';
         Storage::makeDirectory($destination, 0755);
         $coverName = Str::orderedUuid().'.'.$file->extension();
-        $coverPath = storage_path('app/'.$destination).'/'.$coverName;
+        $coverAbsolutePath = storage_path('app/'.$destination).'/'.$coverName;
         $cover = InterventionImage::make($file)
             ->resize($width, $height)
-            ->save($coverPath);
+            ->save($coverAbsolutePath);
 
         return $destination.'/'.$coverName;
     }
