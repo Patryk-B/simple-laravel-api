@@ -43,12 +43,12 @@ Class MovieRequestRules {
      */
     public static function patch(): array
     {
-        $restrictions = MovieRequestRules::base();
-        foreach ($restrictions as &$restriction) {
-            array_unshift($restriction, 'sometimes');
+        $rules = MovieRequestRules::base();
+        foreach ($rules as &$rule) {
+            array_unshift($rule, 'sometimes');
         }
 
-        return $restrictions;
+        return $rules;
     }
 
 }

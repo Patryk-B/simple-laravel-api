@@ -13,9 +13,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// ---- . ---- ---- ---- ---- . ----
+// home:
+// ---- . ---- ---- ---- ---- . ----
+
 Route::get('/', function () {
     return view('welcome');
 });
+
+// ---- . ---- ---- ---- ---- . ----
+// utils:
+// ---- . ---- ---- ---- ---- . ----
 
 // FATAL: THIS IS JUST A MOCK SETUP !!!
 Route::get('/mockSetup', function () {

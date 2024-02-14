@@ -2,9 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\V1\MovieController;
-use App\Http\Controllers\Api\V1\CoverController;
-use App\Http\Controllers\API\V1\RegisterController;
+use App\Http\Controllers\Api\V1\AuthController as AuthControllerV1;
+use App\Http\Controllers\Api\V1\MovieController as MovieControllerV1;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,31 +27,52 @@ use App\Http\Controllers\API\V1\RegisterController;
 //     Route::post('users', 'login')->name('index');
 // });
 
-// // ---- . ---- ---- ---- ---- . ----
-// // user:
-// // ---- . ---- ---- ---- ---- . ----
+// ---- . ---- ---- ---- ---- . ----
+// user:
+// ---- . ---- ---- ---- ---- . ----
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+
+// ---- . ---- ---- ---- ---- . ----
+// auth:
+// ---- . ---- ---- ---- ---- . ----
+
+// public `auth` routes (default):
+Route::group([
+    'namespace' => 'App\Http\Controllers\Api\V1',
+], function() {
+    Route::post('/register', [AuthControllerV1::class, 'register']);
+    Route::post('/login', [AuthControllerV1::class, 'login']);
 });
 
-// Route::middleware('auth:sanctum')->group(function() {
-//     Route::get('/users', [RegisterController::class, 'index'])->name('index');
-// });
-
-// Route::middleware('auth:sanctum')->controller(RegisterController::class)->group(function() {
-//     Route::get('/users', 'index')->name('index');
-// });
-
-// ---- . ---- ---- ---- ---- . ----
-// crud api:
-// ---- . ---- ---- ---- ---- . ----
-
+// public `auth` routes (V1):
 Route::group([
-    'prefix' => 'v1', // api/v1
+    'prefix' => 'v1',
+    'namespace' => 'App\Http\Controllers\Api\V1',
+], function() {
+    Route::post('/register', [AuthControllerV1::class, 'register']);
+    Route::post('/login', [AuthControllerV1::class, 'login']);
+});
+
+// ---- . ---- ---- ---- ---- . ----
+// movies:
+// ---- . ---- ---- ---- ---- . ----
+
+// protected `movie` routes (default):
+Route::group([
     'namespace' => 'App\Http\Controllers\Api\V1',
     'middleware' => 'auth:sanctum'
 ], function () {
-    Route::apiResource('movies', MovieController::class);
-    Route::apiResource('covers', CoverController::class);
+    Route::apiResource('movies', MovieControllerV1::class);
+});
+
+// protected `movie` routes (V1):
+Route::group([
+    'prefix' => 'v1',
+    'namespace' => 'App\Http\Controllers\Api\V1',
+    'middleware' => 'auth:sanctum'
+], function () {
+    Route::apiResource('movies', MovieControllerV1::class);
 });

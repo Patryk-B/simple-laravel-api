@@ -13,8 +13,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Resources\V1\MovieResource;
 use App\Http\Resources\V1\MovieCollection;
-use App\Http\Requests\V1\StoreMovieRequest;
-use App\Http\Requests\V1\UpdateMovieRequest;
+use App\Http\Requests\V1\MovieStoreRequest;
+use App\Http\Requests\V1\MovieUpdateRequest;
 
 class MovieController extends Controller
 {
@@ -28,7 +28,8 @@ class MovieController extends Controller
 
         $movies = Movie::where($filerItems);
 
-        return new MovieCollection($movies->paginate()->appends($request->query()));
+        $collection = new MovieCollection($movies->paginate()->appends($request->query()));
+        return $collection;
     }
 
     /**
@@ -42,7 +43,7 @@ class MovieController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreMovieRequest $request)
+    public function store(MovieStoreRequest $request)
     {
         // Validate request:
         $validated = $request->validated(); // will throw `ValidationException` on invalid data.
@@ -50,13 +51,13 @@ class MovieController extends Controller
         // Create new movie:
         $movie = Movie::create([
             'title' => $validated['title'],
-            'cover' => $this->resizeCover($validated['cover']),
+            'cover' => MovieController::resizeCover($validated['cover']),
             'country' => $validated['country'],
             'description' => $validated['description']
         ]);
 
         // Attach genres:
-        $GenreUUIDs = $this->getGenreUUIDs(
+        $GenreUUIDs = MovieController::getGenreUUIDs(
             $validated['genres']
         );
         $movie->genres()->attach($GenreUUIDs);
@@ -84,7 +85,7 @@ class MovieController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateMovieRequest $request, Movie $movie)
+    public function update(MovieUpdateRequest $request, Movie $movie)
     {
         // Validate request:
         $validated = $request->validated(); // will throw `ValidationException` on invalid data.
@@ -100,12 +101,12 @@ class MovieController extends Controller
         if ($validated['cover'] ?? null) {
             Storage::delete($movie->cover);
             $movie->update([
-               'cover' => $this->resizeCover($validated['cover'])
+               'cover' => MovieController::resizeCover($validated['cover'])
             ]);
         }
 
         // Update genres (detach old & attach new):
-        $GenreUUIDs = $this->getGenreUUIDs(
+        $GenreUUIDs = MovieController::getGenreUUIDs(
             $validated['genres'] ?? $movie->genres()->get()->pluck('name')
         );
         $movie->genres()->detach();
@@ -127,7 +128,7 @@ class MovieController extends Controller
     /**
      * parse genres
      */
-    public function getGenreUUIDs(array $genres)
+    public static function getGenreUUIDs(array $genres)
     {
         $GenreUUIDs = Genre::whereIn('name', $genres)->pluck('id')->toArray();
         return $GenreUUIDs;
@@ -136,7 +137,7 @@ class MovieController extends Controller
     /**
      * resize image before uploading
      */
-    public function resizeCover(UploadedFile $file)
+    public static function resizeCover(UploadedFile $file)
     {
         $width = 500;
         $height = 500;

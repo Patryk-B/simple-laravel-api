@@ -20,24 +20,6 @@ class User extends Authenticatable
      */
     protected $table = 'users';
 
-    // /**
-    //  * `users` table's primary key is set to `uuid` (string) not `id` (integer).
-    //  *
-    //  * Explicitly define key type as `string`.
-    //  *
-    //  * @var string
-    //  */
-    // protected $keyType = 'string';
-
-    // /**
-    //  * `users` table's primary key is set to `uuid` (string) not `id` (integer).
-    //  *
-    //  * Explicitly define not to increment primary key.
-    //  *
-    //  * @var bool
-    //  */
-    // public $incrementing = false;
-
     /**
      * The attributes that are mass assignable.
      *

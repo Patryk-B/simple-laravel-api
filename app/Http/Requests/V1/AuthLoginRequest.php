@@ -2,20 +2,16 @@
 
 namespace App\Http\Requests\V1;
 
-use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
-use App\Http\Requests\V1\Helpers\MovieRequestRules;
 
-class StoreMovieRequest extends FormRequest
+class AuthLoginRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        $user = $this->user();
-
-        return $user != null && $user->tokenCan('create'); // 'movie:create'
+        return true;
     }
 
     /**
@@ -25,6 +21,8 @@ class StoreMovieRequest extends FormRequest
      */
     public function rules(): array
     {
-        return MovieRequestRules::post();
+        return [
+            //
+        ];
     }
 }

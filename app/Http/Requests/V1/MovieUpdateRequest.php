@@ -6,7 +6,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 use App\Http\Requests\V1\Helpers\MovieRequestRules;
 
-class UpdateMovieRequest extends FormRequest
+class MovieUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,14 +26,17 @@ class UpdateMovieRequest extends FormRequest
     public function rules(): array
     {
         $method = $this->method();
-        if ($method == 'PUT') {
-            $test = MovieRequestRules::put();
-            return $test;
-        } else if ($method == 'PATCH') {
+        if ($method == 'PUT')
+        {
+            return MovieRequestRules::put();
+        }
+        else if ($method == 'PATCH')
+        {
             return MovieRequestRules::patch();
         }
-
-        // TODO: throw error: unknown method / sanity check.
-
+        else
+        {
+            // TODO: throw error: unknown method / sanity check.
+        }
     }
 }
