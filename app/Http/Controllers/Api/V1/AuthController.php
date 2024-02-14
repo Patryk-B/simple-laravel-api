@@ -28,8 +28,8 @@ class AuthController extends Controller
         ]);
 
         // login user:
-        $data['user'] = $user;
         $data['token'] = $user->createToken($user->email, ['*'])->plainTextToken;
+        $data['user'] = $user;
 
         // response:
         $response = [
