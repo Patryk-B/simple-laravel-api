@@ -3,6 +3,7 @@
 namespace App\Http\Requests\V1;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\V1\Helpers\AuthRequestRules;
 
 class AuthLoginRequest extends FormRequest
 {
@@ -11,7 +12,7 @@ class AuthLoginRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return true; // everyone can login.
     }
 
     /**
@@ -21,8 +22,6 @@ class AuthLoginRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            //
-        ];
+        return AuthRequestRules::login();
     }
 }

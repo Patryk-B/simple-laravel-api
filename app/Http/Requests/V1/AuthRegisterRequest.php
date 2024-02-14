@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests\V1;
 
-use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\V1\Helpers\AuthRequestRules;
 
 class AuthRegisterRequest extends FormRequest
 {
@@ -12,7 +12,7 @@ class AuthRegisterRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true; // you don't need to be logged in order to register new user.
+        return true; // everyone can register a new user.
     }
 
     /**
@@ -22,10 +22,6 @@ class AuthRegisterRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'name' => ['required', 'string', 'max:250' /*, Rule::unique('users', 'name') */],
-            'email' => ['required', 'string', 'email:rfc,dns', 'max:250', Rule::unique('users', 'email')],
-            'password' => ['required', 'string', 'min:8', 'confirmed']
-        ];
+        return AuthRequestRules::register();
     }
 }

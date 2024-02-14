@@ -13,9 +13,15 @@ class MovieUpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
+        // get user:
         $user = $this->user();
 
-        return $user != null && $user->tokenCan('update'); // 'movie:update'
+        // only author can update movies:
+        $movie = $this->route('movie');
+        $isAuthor = $user->id == $movie->uploaded_by;
+
+        // exit:
+        return $user != null && $user->tokenCan('update') && $isAuthor;
     }
 
     /**

@@ -13,8 +13,12 @@ class MovieStoreRequest extends FormRequest
      */
     public function authorize(): bool
     {
+        // get user:
         $user = $this->user();
 
+        // everyone can post a movie.
+
+        // exit:
         return $user != null && $user->tokenCan('create'); // 'movie:create'
     }
 

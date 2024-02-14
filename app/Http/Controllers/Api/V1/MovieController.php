@@ -28,8 +28,8 @@ class MovieController extends Controller
 
         $movies = Movie::where($filerItems);
 
-        $collection = new MovieCollection($movies->paginate()->appends($request->query()));
-        return $collection;
+        $response = new MovieCollection($movies->paginate()->appends($request->query()));
+        return $response;
     }
 
     /**
@@ -48,12 +48,16 @@ class MovieController extends Controller
         // Validate request:
         $validated = $request->validated(); // will throw `ValidationException` on invalid data.
 
+        // Get user's uuid:
+        $userUUID = $request->user()->id;
+
         // Create new movie:
         $movie = Movie::create([
             'title' => $validated['title'],
             'cover' => MovieController::resizeCover($validated['cover']),
             'country' => $validated['country'],
-            'description' => $validated['description']
+            'description' => $validated['description'],
+            'uploaded_by' => $userUUID,
         ]);
 
         // Attach genres:
@@ -63,7 +67,8 @@ class MovieController extends Controller
         $movie->genres()->attach($GenreUUIDs);
 
         // Return resource:
-        return new MovieResource($movie);
+        $response = new MovieResource($movie);
+        return $response;
     }
 
     /**
@@ -71,7 +76,8 @@ class MovieController extends Controller
      */
     public function show(Movie $movie)
     {
-        return new MovieResource($movie);
+        $response = new MovieResource($movie);
+        return $response;
     }
 
     /**
@@ -113,7 +119,8 @@ class MovieController extends Controller
         $movie->genres()->attach($GenreUUIDs);
 
         // Return resource:
-        return new MovieResource($movie);
+        $response = new MovieResource($movie);
+        return $response;
     }
 
     /**
@@ -122,7 +129,8 @@ class MovieController extends Controller
     public function destroy(Movie $movie)
     {
         $movie->delete();
-        return response()->json(null, 204);
+        $response = response()->json(null, 204);
+        return $response;
     }
 
     /**
@@ -149,6 +157,7 @@ class MovieController extends Controller
             ->resize($width, $height)
             ->save($coverAbsolutePath);
 
-        return $destination.'/'.$coverName;
+        $coverRelativePath = $destination.'/'.$coverName;
+        return $coverRelativePath;
     }
 }

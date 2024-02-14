@@ -3,6 +3,7 @@
 namespace App\Http\Requests\V1;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\V1\Helpers\AuthRequestRules;
 
 class AuthLogoutRequest extends FormRequest
 {
@@ -11,7 +12,11 @@ class AuthLogoutRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        // get user:
+        $user = $this->user();
+
+        // exit:
+        return $user != null;
     }
 
     /**
@@ -21,8 +26,6 @@ class AuthLogoutRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            //
-        ];
+        return [];
     }
 }

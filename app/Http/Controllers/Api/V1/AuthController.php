@@ -6,6 +6,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\V1\AuthLoginRequest;
+use App\Http\Requests\V1\AuthLogoutRequest;
 use App\Http\Requests\V1\AuthRegisterRequest;
 
 class AuthController extends Controller
@@ -26,8 +28,8 @@ class AuthController extends Controller
         ]);
 
         // login user:
-        $data['token'] = $user->createToken($user->email)->plainTextToken;
         $data['user'] = $user;
+        $data['token'] = $user->createToken($user->email, ['*'])->plainTextToken;
 
         // response:
         $response = [
@@ -37,22 +39,57 @@ class AuthController extends Controller
         ];
 
         // exit:
-        return response()->json($response, 201);
+        $response = response()->json($response, 201);
+        return $response;
     }
 
     /**
      * logins a user.
      */
-    public function login(Request $request)
+    public function login(AuthLoginRequest $request)
     {
+        // Validate request:
+        $validated = $request->validated(); // will throw `ValidationException` on invalid data.
 
+        // Check email exist:
+        $user = User::where('email', $validated['email'])->first();
+
+        // Check password:
+        if(!$user || !Hash::check($validated['password'], $user['password'])) {
+            return response()->json([
+                'status' => 'failed',
+                'message' => 'Invalid credentials'
+            ], 401);
+        }
+
+        // Response:
+        $data['token'] = $user->createToken($validated['email'], ['*'])->plainTextToken;
+        $data['user'] = $user;
+        $response = [
+            'status' => 'success',
+            'message' => 'User is logged in successfully.',
+            'data' => $data,
+        ];
+
+        // Exit:
+        return response()->json($response, 200);
     }
 
     /**
      * logouts a user.
      */
-    public function logout(Request $request)
+    public function logout(AuthLogoutRequest $request)
     {
+        // Get user:
+        $user = auth()->user();
 
+        // Logout:
+        $user->tokens()->delete();
+
+        // Exit:
+        return response()->json([
+            'status' => 'success',
+            'message' => 'User is logged out successfully'
+        ], 200);
     }
 }

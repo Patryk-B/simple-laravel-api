@@ -36,7 +36,7 @@ use App\Http\Controllers\Api\V1\MovieController as MovieControllerV1;
 // });
 
 // ---- . ---- ---- ---- ---- . ----
-// auth:
+// auth: public:
 // ---- . ---- ---- ---- ---- . ----
 
 // public `auth` routes (default):
@@ -54,6 +54,27 @@ Route::group([
 ], function() {
     Route::post('/register', [AuthControllerV1::class, 'register']);
     Route::post('/login', [AuthControllerV1::class, 'login']);
+});
+
+// ---- . ---- ---- ---- ---- . ----
+// auth: protected:
+// ---- . ---- ---- ---- ---- . ----
+
+// protected `auth` routes (default):
+Route::group([
+    'namespace' => 'App\Http\Controllers\Api\V1',
+    'middleware' => 'auth:sanctum'
+], function() {
+    Route::post('/logout', [AuthControllerV1::class, 'logout']);
+});
+
+// protected `auth` routes (V1):
+Route::group([
+    'prefix' => 'v1',
+    'namespace' => 'App\Http\Controllers\Api\V1',
+    'middleware' => 'auth:sanctum'
+], function() {
+    Route::post('/logout', [AuthControllerV1::class, 'logout']);
 });
 
 // ---- . ---- ---- ---- ---- . ----
