@@ -6,16 +6,20 @@ use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 use App\Http\Requests\V1\Helpers\MovieRequestRules;
 
-class UpdateMovieRequest extends FormRequest
+class MovieStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
+        // get user:
         $user = $this->user();
 
-        return $user != null && $user->tokenCan('update'); // 'movie:update'
+        // everyone can post a movie.
+
+        // exit:
+        return $user != null && $user->tokenCan('create'); // 'movie:create'
     }
 
     /**
@@ -25,15 +29,6 @@ class UpdateMovieRequest extends FormRequest
      */
     public function rules(): array
     {
-        $method = $this->method();
-        if ($method == 'PUT') {
-            $test = MovieRequestRules::put();
-            return $test;
-        } else if ($method == 'PATCH') {
-            return MovieRequestRules::patch();
-        }
-
-        // TODO: throw error: unknown method / sanity check.
-
+        return MovieRequestRules::post();
     }
 }

@@ -21,10 +21,7 @@ follow these steps to prepare the local dev env (based on `laravel/sail` and `do
 8. run either `npm run __dev_windows_sail_artisan_db_seed` or `npm run __dev_linux_sail_artisan_db_seed`\
     (this will seed the database)
 
-9. open http://localhost/mockSetup in the `browser` or `postman` to generate access tokens for the local dev env.\
-    **IMPORTANT**:
-    - the page will appear only one time during the 1st visit. Any subsequential visit will result in an empty response. Please save tokens somewhere, because they are needed to authenticate the api requests.
-    - this step needs to be repeated after every `<php|sail> artisan migrate fresh --seed` (or `npm run __dev_<windows|linux>_sail_artisan_migrate_fresh_seed`).
+9. open http://localhost/api/v1/register (or `/login` & `/logout` on subsequent visits) in the `postman` to create a new user and generate access token.\
 
 ----
 
@@ -51,7 +48,7 @@ follow these steps to prepare the local dev env (based on `laravel/sail` and `do
 
 - rest api is versioned (to let people opt-in when they are ready instead of forcing the update onto them).
 
-- rest api requires authentication (currently `/register`, `/login`, `/logout` are not implemented, please use `/mockSetup` to generate access tokens for `postman`).
+- rest api requires authentication via `laravel/sanctum` (http://localhost/api/v1/register, http://localhost/api/v1/login and http://localhost/api/v1/logout).
 
 ----
 
@@ -62,7 +59,6 @@ follow these steps to prepare the local dev env (based on `laravel/sail` and `do
 2. recreate this app as a `microservice` (via proper `Dockerfile` and `docker-composer.yml` configuration).
 
 3. The `user` system:
-    - `/register`, `/login`, `/logout` routes
     - user roles like `Admin`, `Publisher`, `Basic`, ... (many-to-many relation).
     - ability for a user to like a movie.
 
