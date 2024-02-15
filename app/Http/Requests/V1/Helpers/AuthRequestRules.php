@@ -12,9 +12,14 @@ Class AuthRequestRules {
     public static function register(): array
     {
         return [
+            'id' => ['prohibited'],
             'name' => ['required', 'string', 'max:250'],
             'email' => ['required', 'string', 'email:rfc,dns', 'max:250', Rule::unique('users', 'email')],
-            'password' => ['required', 'string', 'min:8', 'confirmed']
+            'email_verified_at' => ['prohibited'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'remember_token' => ['prohibited'],
+            'created_at' => ['prohibited'],
+            'updated_at' => ['prohibited'],
         ];
     }
 
@@ -24,8 +29,14 @@ Class AuthRequestRules {
     public static function login(): array
     {
         return [
+            'id' => ['prohibited'],
+            'name' => ['prohibited'],
             'email' => ['required', 'string', 'email'],
-            'password' => ['required', 'string']
+            'email_verified_at' => ['prohibited'],
+            'password' => ['required', 'string'],
+            'remember_token' => ['prohibited'],
+            'created_at' => ['prohibited'],
+            'updated_at' => ['prohibited'],
         ];
     }
 }

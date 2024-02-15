@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Resources\V1\UserResource;
 use App\Http\Requests\V1\AuthLoginRequest;
 use App\Http\Requests\V1\AuthLogoutRequest;
 use App\Http\Requests\V1\AuthRegisterRequest;
@@ -27,14 +28,12 @@ class AuthController extends Controller
             'password' => Hash::make($validated['password'])
         ]);
 
-        // login user:
+        // Response:
         $data['token'] = $user->createToken($user->email, ['*'])->plainTextToken;
-        $data['user'] = $user;
-
-        // response:
+        $data['user'] = new UserResource($user);
         $response = [
             'status' => 'success',
-            'message' => 'User is created successfully.',
+            'message' => 'User created successfully.',
             'data' => $data,
         ];
 
@@ -64,10 +63,10 @@ class AuthController extends Controller
 
         // Response:
         $data['token'] = $user->createToken($validated['email'], ['*'])->plainTextToken;
-        $data['user'] = $user;
+        $data['user'] = new UserResource($user);
         $response = [
             'status' => 'success',
-            'message' => 'User is logged in successfully.',
+            'message' => 'User logged in successfully.',
             'data' => $data,
         ];
 
@@ -89,7 +88,7 @@ class AuthController extends Controller
         // Exit:
         return response()->json([
             'status' => 'success',
-            'message' => 'User is logged out successfully'
+            'message' => 'User logged out successfully'
         ], 200);
     }
 }
