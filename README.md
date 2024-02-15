@@ -21,7 +21,10 @@ follow these steps to prepare the local dev env (based on `laravel/sail` and `do
 8. run either `npm run __dev_windows_sail_artisan_db_seed` or `npm run __dev_linux_sail_artisan_db_seed`\
     (this will seed the database)
 
-9. open http://localhost/api/v1/register (or `/login` & `/logout` on subsequent visits) in the `postman` to create a new user and generate access token.\
+9. open http://localhost/api/v1/register (or `/login` & `/logout` on subsequent visits) in the `postman` to create a new user and generate access token.
+
+10. to auth your request in `postman` use:
+![plot](./.README/assets/postman_auth.png)
 
 ----
 
