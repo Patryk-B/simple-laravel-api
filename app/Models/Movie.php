@@ -36,7 +36,7 @@ class Movie extends Model
     /**
      * Get the user that owns the phone.
      */
-    public function user()
+    public function uploadedByUser(): BelongsTo
     {
         return $this->belongsTo(User::class, 'uploaded_by');
     }
@@ -44,8 +44,16 @@ class Movie extends Model
     /**
      * Get `genres` that belong to the current `movie`.
      */
-    public function genres()
+    public function genres(): BelongsToMany
     {
-        return $this->belongsToMany(Genre::class);
+        return $this->belongsToMany(Genre::class, 'genre_movie', 'genre_id', 'movie_id');
+    }
+
+    /**
+     * Get users who liked this movie.
+     */
+    public function likedByUsers(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'movie_user', 'movie_id', 'user_id');
     }
 }

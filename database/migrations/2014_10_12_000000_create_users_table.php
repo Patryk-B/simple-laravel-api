@@ -22,6 +22,8 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+
+            // remember token: (when logging in, option "remember me")
             $table->rememberToken();
 
             // timestamps:

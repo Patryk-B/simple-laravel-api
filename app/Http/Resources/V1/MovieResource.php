@@ -21,7 +21,7 @@ class MovieResource extends JsonResource
             'genres' => $this->genres->pluck('name'),
             'country' => $this->country,
             'description' => $this->description,
-            // 'uploadedBy' => $this->uploaded_by,
+            'uploadedBy' => $this->uploaded_by, // 'uploadedBy' => $this->uploadedByUser->id
         ];
     }
 }

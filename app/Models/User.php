@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class User extends Authenticatable
 {
@@ -53,10 +54,18 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get the comments for the blog post.
+     * Get movies the user uploaded.
      */
-    public function movies(): HasMany
+    public function uploadedMovies(): HasMany
     {
-        return $this->hasMany(Movie::class);
+        return $this->hasMany(Movie::class, 'uploaded_by');
+    }
+
+    /**
+     * Get movies liked by user.
+     */
+    public function likedMovies(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'movie_user', 'movie_id', 'user_id');
     }
 }

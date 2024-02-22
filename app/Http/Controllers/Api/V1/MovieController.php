@@ -133,10 +133,14 @@ class MovieController extends Controller
         return $response;
     }
 
+    // ---- . ---- ---- ---- ---- . ----
+    // helper functions:
+    // ---- . ---- ---- ---- ---- . ----
+
     /**
      * parse genres
      */
-    public static function getGenreUUIDs(array $genres)
+    private static function getGenreUUIDs(array $genres)
     {
         $GenreUUIDs = Genre::whereIn('name', $genres)->pluck('id')->toArray();
         return $GenreUUIDs;
@@ -145,7 +149,7 @@ class MovieController extends Controller
     /**
      * resize image before uploading
      */
-    public static function resizeCover(UploadedFile $file)
+    private static function resizeCover(UploadedFile $file)
     {
         $width = 500;
         $height = 500;
