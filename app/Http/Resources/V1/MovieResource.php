@@ -3,6 +3,7 @@
 namespace App\Http\Resources\V1;
 
 use Illuminate\Http\Request;
+use App\Http\Resources\V1\UserResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class MovieResource extends JsonResource
@@ -21,7 +22,7 @@ class MovieResource extends JsonResource
             'genres' => $this->genres->pluck('name'),
             'country' => $this->country,
             'description' => $this->description,
-            'uploadedBy' => $this->uploaded_by, // 'uploadedBy' => $this->uploadedByUser->id
+            'uploadedBy' => $this->uploaded_by, // 'uploadedBy' => new UserResource($this->uploadedByUser)->id
         ];
     }
 }

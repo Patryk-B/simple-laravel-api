@@ -16,8 +16,10 @@ return new class extends Migration
             $table->id();
 
             // other:
-            $table->foreignUuid('genre_id')->constrained()->onDelete('cascade');
-            $table->foreignUuid('movie_id')->constrained()->onDelete('cascade');
+            // $table->foreignUuid('genre_id')->constrained()->onDelete('cascade');
+            $table->foreignUuid('genre_id')->references('id')->on('genres')->onDelete('cascade');
+            // $table->foreignUuid('movie_id')->constrained()->onDelete('cascade');
+            $table->foreignUuid('movie_id')->references('id')->on('movies')->onDelete('cascade');
 
             // timestamps:
             $table->timestamps();

@@ -111,12 +111,11 @@ class MovieController extends Controller
             ]);
         }
 
-        // Update genres (detach old & attach new):
+        // Update genres:
         $GenreUUIDs = MovieController::getGenreUUIDs(
             $validated['genres'] ?? $movie->genres()->get()->pluck('name')
         );
-        $movie->genres()->detach();
-        $movie->genres()->attach($GenreUUIDs);
+        $movie->genres()->sync($GenreUUIDs);
 
         // Return resource:
         $response = new MovieResource($movie);
@@ -140,7 +139,7 @@ class MovieController extends Controller
     /**
      * parse genres
      */
-    private static function getGenreUUIDs(array $genres)
+    public static function getGenreUUIDs(array $genres)
     {
         $GenreUUIDs = Genre::whereIn('name', $genres)->pluck('id')->toArray();
         return $GenreUUIDs;
@@ -149,7 +148,7 @@ class MovieController extends Controller
     /**
      * resize image before uploading
      */
-    private static function resizeCover(UploadedFile $file)
+    public static function resizeCover(UploadedFile $file)
     {
         $width = 500;
         $height = 500;

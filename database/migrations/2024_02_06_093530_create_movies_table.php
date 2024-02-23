@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('cover');
             $table->string('country');
             $table->longText('description');
-            $table->foreignUuid('uploaded_by')->nullable()->references('id')->on('users');
+            $table->foreignUuid('uploaded_by')->references('id')->on('users');
 
             // timestamps:
             $table->timestamps();
